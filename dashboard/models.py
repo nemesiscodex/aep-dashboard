@@ -1,6 +1,14 @@
 from django.db import models
 from enum import Enum
 
+class Collector(models.Model):
+    created_at = models.DateTimeField(blank=True, null=True)
+    frame = models.CharField(max_length=64)
+
+    class Meta:
+        managed = False
+        db_table = 'collector'
+
 class Location(models.Model):
     latitude = models.FloatField()
     longitude = models.FloatField()
@@ -43,6 +51,7 @@ class Detector(Location):
         ]
 
 class Activation(models.Model):
+    collector_id = models.IntegerField(unique=True, null=True)
     timestamp = models.DateTimeField()
     detector_identifier = models.CharField(max_length=16, null=False)
     uptime_days = models.IntegerField()
