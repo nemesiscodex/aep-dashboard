@@ -1,3 +1,5 @@
-from django.contrib import admin
+from django.contrib.gis import admin
+from .models import Detector, Area
 
-# Register your models here.
+admin.site.register(Detector, admin.GeoModelAdmin)
+admin.site.register(Area, admin.GeoModelAdmin)

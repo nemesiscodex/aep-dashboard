@@ -1,4 +1,4 @@
-from django.db import models
+from django.contrib.gis.db import models
 from enum import Enum
 
 class Collector(models.Model):
@@ -10,8 +10,9 @@ class Collector(models.Model):
         db_table = 'collector'
 
 class Location(models.Model):
-    latitude = models.FloatField()
     longitude = models.FloatField()
+    latitude = models.FloatField()
+    geom = models.PointField()
 
     class Meta:
         abstract = True
@@ -29,7 +30,8 @@ class AreaType(ChoiceEnum):
 class Area(models.Model):
     name = models.CharField(max_length=200)
     area_type = models.CharField(max_length=16, choices=AreaType.choices())
-    # TODO: polygon type
+
+    geom = models.PolygonField()
 
     class Meta:
         indexes = [

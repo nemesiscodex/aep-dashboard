@@ -33,14 +33,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'core',
-    'dashboard',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
+    'core',
+    'dashboard',
 ]
 
 MIDDLEWARE = [
@@ -83,7 +84,7 @@ WSGI_APPLICATION = 'aep.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'HOST': os.environ.get('DATABASE_HOST', '127.0.0.1'),
         'PORT': os.environ.get('DATABASE_PORT', '5432'),
         'NAME': os.environ.get('DATABASE_NAME', 'aep'),
