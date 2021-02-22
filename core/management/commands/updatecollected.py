@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.db.models.aggregates import Max
-from dashboard.models import Collector, Activation
+from core.models import Collector, Activation
 from django.utils.timezone import make_aware
 import re
 
