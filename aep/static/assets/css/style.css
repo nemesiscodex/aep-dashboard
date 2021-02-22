@@ -1516,7 +1516,7 @@ p.text-muted {
           align-items: center;
 }
 .b-brand .b-bg {
-  background: linear-gradient(-135deg, #1de9b6 0%, #1dc4e9 100%);
+  background: linear-gradient(180deg, rgba(248,85,73,1) 0%, rgba(248,85,73,1) 33%, rgba(255,255,255,1) 33%, rgba(255,255,255,1) 66%, rgba(35,106,185,1) 66%, rgba(35,106,185,1) 100%);
   border-radius: 10px;
   width: 35px;
   height: 35px;
@@ -1531,7 +1531,7 @@ p.text-muted {
           justify-content: center;
 }
 .b-brand .b-bg i {
-  color: #fff;
+  color: #3f4d67;
 }
 .b-brand .b-title {
   margin-left: 10px;
