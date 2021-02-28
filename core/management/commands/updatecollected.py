@@ -6,7 +6,6 @@ import re
 
 class Command(BaseCommand):
     help = 'Update activations from collectors table'
-    pattern = r'^@(\d{3})-(\d{2}):(\d{2}):(\d{2})\*(\d{2})-(\d{4})(\d{4})(\d{4})(\d{4})=(\d{3})$'
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -34,7 +33,7 @@ class Command(BaseCommand):
         print("Records to process: {0}".format(total))
 
         for value in values:
-            parsed_frame = re.search(Command.pattern, value.frame)
+            parsed_frame = value.match_frame()
             if parsed_frame:
                 days, hours, minutes, seconds, \
                     detector_id, s1, s2, s3, s4, count = parsed_frame.groups()

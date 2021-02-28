@@ -15,6 +15,57 @@
             <div class="main-body">
                 <div class="page-wrapper">
                     <!-- [ Main Content ] start -->
+                        <!--[ daily sales section ] start-->
+                        <div class="row">
+                            <div class="col-md-4 col-xl-4">
+                                <div class="card">
+                                    <div class="card-block border-bottom">
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-auto">
+                                                <i class="fa fa-bug f-30 text-c-red"></i>
+                                            </div>
+                                            <div class="col">
+                                                <h3 class="f-w-300">{{ detected_today }}</h3>
+                                                <span class="d-block text-uppercase">TOTAL DETECTED TODAY</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xl-4">
+                                <div class="card">
+                                    <div class="card-block border-bottom">
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-auto">
+                                                <i class="fa fa-bug f-30 text-c-red"></i>
+                                            </div>
+                                            <div class="col">
+                                                <h3 class="f-w-300">{{ detected_this_week }}</h3>
+                                                <span class="d-block text-uppercase">TOTAL DETECTED THIS WEEK</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xl-4">
+                                <div class="card">
+                                    <div class="card-block border-bottom">
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-auto">
+                                                <i class="fa fa-bug f-30 text-c-red"></i>
+                                            </div>
+                                            <div class="col">
+                                                <h3 class="f-w-300">{{ detected_this_month }}</h3>
+                                                <span class="d-block text-uppercase">TOTAL DETECTED THIS MONTH</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% for detected in detected_per_day %}
+                            {{ detected }}
+                        {% endfor %}
                     <!-- [ Main Content ] end -->
                 </div>
             </div>

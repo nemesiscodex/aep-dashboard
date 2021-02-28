@@ -1,11 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.forms.utils import ErrorList
 from django.http import HttpResponse
 from django.template import loader
 from .forms import LoginForm, SignUpForm
+from .services import DashboardService
 from django import template
 
 def login_view(request):
@@ -60,9 +59,21 @@ def index(request):
     
     context = {}
     context['segment'] = 'index'
+    context['detected_today'] = DashboardService.get_detected_today()
+    context['detected_this_week'] = DashboardService.get_detected_this_week()
+    context['detected_this_month'] = DashboardService.get_detected_this_month()
+    context['detected_per_day'] = DashboardService.get_detected_per_day()
 
     html_template = loader.get_template( 'index.html' )
     return HttpResponse(html_template.render(context, request))
+
+
+@login_required(login_url="/login/")
+def activations(request):
+    context = {}
+    template = 'activations.html'
+    return load_page(request, context, template)
+
 
 @login_required(login_url="/login/")
 def pages(request):
@@ -71,18 +82,28 @@ def pages(request):
     # Pick out the html file name from the url. And load that template.
     try:
         
-        load_template      = request.path.split('/')[-1]
-        context['segment'] = load_template
+        load_template = request.path.split('/')[-1]
+        return load_page(request, context, load_template)
+
+    except Exception as e:
+    
+        print(e)
+        html_template = loader.get_template( 'page-500.html' )
+        return HttpResponse(html_template.render(context, request))
+
+def load_page(request, context, template_name):
+    try:
+        context['segment'] = template_name
         
-        html_template = loader.get_template( load_template )
+        html_template = loader.get_template( template_name )
         return HttpResponse(html_template.render(context, request))
         
-    except template.TemplateDoesNotExist:
+    except (template.TemplateDoesNotExist, IsADirectoryError):
 
         html_template = loader.get_template( 'page-404.html' )
         return HttpResponse(html_template.render(context, request))
 
-    except:
-    
+    except Exception as e:
+        print(e)
         html_template = loader.get_template( 'page-500.html' )
         return HttpResponse(html_template.render(context, request))

@@ -19,7 +19,24 @@
                         class="nav-item {% if 'index' in segment %} active {% endif %}">
                         <a href="/" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
                     </li>
-                    
+                    <li class="nav-item pcoded-menu-caption">
+                        <label>Data</label>
+                    </li>
+                    {% url 'collector' as collector_url %}
+                    <li data-username="Disabled Menu" class="nav-item {% if request.get_full_path == collector_url %} active {% endif %}">
+                        <a href="{{ collector_url }}" class="nav-link">
+                            <span class="pcoded-micon"><i class="feather icon-server"></i></span><span class="pcoded-mtext">Raw Data</span>
+                        </a>
+                    </li>
+                    {% url 'activations' as activations_url %}
+                    <li data-username="Disabled Menu" class="nav-item {% if request.get_full_path == activations_url %} active {% endif %}">
+                        <a href="{{ activations_url }}" class="nav-link">
+                            <span class="pcoded-micon"><i class="feather icon-server"></i></span><span class="pcoded-mtext">Parsed Data</span>
+                        </a>
+                    </li>
+                    <li class="nav-item pcoded-menu-caption">
+                        <label>Actions</label>
+                    </li>
                     <li data-username="Disabled Menu" class="nav-item">
                         <a href="{% url 'logout' %}" class="nav-link">
                             <span class="pcoded-micon"><i class="feather icon-power"></i></span><span class="pcoded-mtext">Logout</span>
