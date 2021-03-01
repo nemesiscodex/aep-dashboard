@@ -24,5 +24,5 @@ urlpatterns = [
     ),
 
     # Matches any html file
-    re_path(r'^.*\.*', pages, name='pages')
+    # re_path(r'^.*\.*', pages, name='pages')
 ]

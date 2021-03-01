@@ -13,14 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.views.decorators.cache import cache_control
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from aep import settings
 import debug_toolbar
 
-urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + [
+urlpatterns = [
     path('__debug__/', include(debug_toolbar.urls)),
     path('admin/', admin.site.urls),
-    path("", include("dashboard.urls")), # Auth routes - login / register, UI Kits Html files
-]
+    path('', include("dashboard.urls")), # Auth routes - login / register, UI Kits Html files
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

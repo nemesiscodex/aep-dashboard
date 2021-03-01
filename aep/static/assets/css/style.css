@@ -51,7 +51,7 @@ File: style.css
 ==========================  **/
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600");
 @import url("../plugins/bootstrap/css/bootstrap.min.css");
-@import url("../fonts/feather/css/feather.css");
+@import url("../fonts/feather/css/feather.min.css");
 @import url("../plugins/jquery-scrollbar/css/jquery.scrollbar.min.css");
 @import url("../fonts/datta/datta-icon.css");
 /**  =====================
@@ -883,6 +883,7 @@ p.text-muted {
   font-style: normal;
   font-weight: 400;
   src: url("https://fonts.gstatic.com/s/materialicons/v41/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2") format("woff2");
+  font-display: swap;
 }
 .material-icons {
   font-family: 'Material Icons';

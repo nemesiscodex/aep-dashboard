@@ -1,6 +1,8 @@
 #!/bin/sh
 
 echo "Collecting static files"
+rm -rf /app/staticfiles
+mkdir /app/staticfiles
 python manage.py collectstatic
 
 echo "Running migrations"
