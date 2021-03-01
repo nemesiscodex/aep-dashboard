@@ -1,0 +1,70 @@
+<div id="heatmap-chart" style="height: 50vh">
+</div>
+
+{{ detected_last_30_days_grouped|json_script:"heatmap-chart-data" }}
+
+<script type="text/javascript">
+function renderHeatmapChart() {
+        var chartDom = document.getElementById('heatmap-chart');
+        var data = JSON.parse(document.getElementById('heatmap-chart-data').textContent);
+        var max = data
+            .map((e) => e[1])
+            .reduce((element, max) => Math.max(element, max));
+        var chart = echarts.init(chartDom, 'walden')
+        
+        var option = {
+            title: {
+                top: 0,
+                left: 'center',
+                text: 'Heatmap detections last 30 days'
+            },
+            tooltip: {
+                trigger: 'item',
+                triggerOn: 'mousemove',
+                formatter: '{b}<br/>{c}'
+            },
+            visualMap: {
+                show: true,
+                top: 90,
+                min: 0,
+                max: max,
+                seriesIndex: 0,
+                calculable: true,
+                inRange: {
+                    color: ['#cccccc', '#ebdba4', '#f2d643', '#ffb248', '#eb8146', '#d95850', '#893448']
+                }
+            },
+            leaflet: {
+                center: [-58.709770813324695, -23.466732474563255],
+                zoom: 6,
+                roam: true,
+                tiles: [{
+                    label: 'OpenStreetMap',
+                    urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    options: {
+                    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
+                    }
+                }]
+            },
+            series: [{
+                type: 'heatmap',
+                coordinateSystem: 'leaflet',
+                // (longitude, latitude, count)
+                data: data.map((point) => [point[2], point[3], point[1]]),
+                pointSize: 10,
+                blurSize: 9
+            }]
+        };
+
+        chart.setOption(option);
+        chart.resize();
+    }
+
+    document.addEventListener("DOMContentLoaded", function(event) { 
+        setTimeout(renderHeatmapChart, 300);
+    });
+
+    window.addEventListener('resize', function(event) {
+        setTimeout(renderHeatmapChart, 300);
+    })
+</script>

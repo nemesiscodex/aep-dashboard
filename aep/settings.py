@@ -22,12 +22,14 @@ CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '7o*5u%fo5z#9kwc)_-q2hoi%)%_dcb1660!m&v=nrn#statv2y'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'secretkeytochangeinprod')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DJANGO_DEBUG', False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+   '*'
+]
 
 INTERNAL_IPS = [
     '127.0.0.1'

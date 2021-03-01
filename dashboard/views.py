@@ -54,7 +54,6 @@ def register_user(request):
     return render(request, "accounts/register.html", {"form": form, "msg" : msg, "success" : success })
 
 
-@login_required(login_url="/login/")
 def index(request):
     
     context = {}
@@ -63,17 +62,10 @@ def index(request):
     context['detected_this_week'] = DashboardService.get_detected_this_week()
     context['detected_this_month'] = DashboardService.get_detected_this_month()
     context['detected_per_day'] = DashboardService.get_detected_per_day()
+    context['detected_last_30_days_grouped'] = DashboardService.get_detected_last_30_days_grouped()
 
     html_template = loader.get_template( 'index.html' )
     return HttpResponse(html_template.render(context, request))
-
-
-@login_required(login_url="/login/")
-def activations(request):
-    context = {}
-    template = 'activations.html'
-    return load_page(request, context, template)
-
 
 @login_required(login_url="/login/")
 def pages(request):

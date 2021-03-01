@@ -1,0 +1,152 @@
+<div id="calendar-chart" style="height: 220px">
+</div>
+<div id="calendar-bar-chart" style="height: 300px">
+</div>
+
+{{ detected_per_day|json_script:"calendat-chart-data" }}
+
+<script type="text/javascript">
+    function getDateRange() {
+        var now = moment(new Date());
+        var viewPortSize = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+        
+        var endDate = now.format("YYYY-MM-DD");
+        var startDate;
+        if (viewPortSize > 1000) {
+            
+            startDate = now.add(-12, 'months');
+        } else if (viewPortSize > 600) {
+
+            startDate = now.add(-6, 'months');
+        } else {
+
+            startDate = now.add(-3, 'months');
+        }
+        startDate = startDate.format("YYYY-MM");
+        console.log(startDate, endDate);
+        return [startDate, endDate];
+    }
+
+    function renderCalendarChart() {
+        var chartDom = document.getElementById('calendar-chart');
+        var data = JSON.parse(document.getElementById('calendat-chart-data').textContent);
+        var max = data
+            .map((e) => e[1])
+            .reduce((element, max) => Math.max(element, max));
+        var chart = echarts.init(chartDom, 'walden')
+        
+        var option = {
+            title: {
+                top: 0,
+                left: 'center',
+                text: 'Detections per day'
+            },
+            toolbox: {
+                right: 50,
+                feature: {
+                    saveAsImage: {
+                        pixelRatio: 2
+                    }
+                }
+            },
+            tooltip: {},
+            visualMap: {
+                min: 0,
+                max: max,
+                type: 'piecewise',
+                orient: 'horizontal',
+                left: 'center',
+                top: 35
+            },
+            calendar: {
+                top: 100,
+                left: 30,
+                right: 30,
+                cellSize: ['auto', 13],
+                range: getDateRange(),
+                itemStyle: {
+                    borderWidth: 0.5
+                },
+                yearLabel: {show: false}
+            },
+            series: {
+                type: 'heatmap',
+                coordinateSystem: 'calendar',
+                data: data
+            }
+        };
+
+        chart.setOption(option);
+        chart.resize();
+    }
+
+    function renderCalendarBarChart() {
+        var chartDom = document.getElementById('calendar-bar-chart');
+        var data = JSON.parse(document.getElementById('calendat-chart-data').textContent);
+        var chart = echarts.init(chartDom, 'walden');
+        var option = {
+            toolbox: {
+                right: 50,
+                feature: {
+                    dataZoom: {
+                        yAxisIndex: false
+                    },
+                    saveAsImage: {
+                        pixelRatio: 2
+                    }
+                }
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            grid: {
+                left: 50,
+                right: 50,
+                bottom: 90
+            },
+            dataZoom: [{
+                    type: 'inside'
+                }, {
+                    type: 'slider'
+            }],
+            xAxis: {
+                data: data.map(row => row[0]),
+                silent: false,
+                splitLine: {
+                    show: false
+                },
+                splitArea: {
+                    show: false
+                }
+            },
+            yAxis: {
+                splitArea: {
+                    show: false
+                }
+            },
+            series: [{
+                type: 'line',
+                data: data.map(row => row[1]),
+                // Set `large` for large data amount
+                large: true
+            }]
+        };
+
+        chart.setOption(option);
+        chart.resize();
+    }
+
+    document.addEventListener("DOMContentLoaded", function(event) { 
+        setTimeout(renderCalendarChart, 300);
+        setTimeout(renderCalendarBarChart, 300);
+    });
+
+    window.addEventListener('resize', function(event) {
+        setTimeout(renderCalendarChart, 300);
+        setTimeout(renderCalendarBarChart, 300);
+    })
+    
+</script>

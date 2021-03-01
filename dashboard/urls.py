@@ -14,12 +14,12 @@ urlpatterns = [
 
     path(
         'collector/', 
-        login_required(login_url="/login/")(CollectorTableView.as_view()), 
+        CollectorTableView.as_view(),
         name='collector'
     ),
     path(
         'activations/', 
-        login_required(login_url="/login/")(ActivationsTableView.as_view()), 
+        ActivationsTableView.as_view(),
         name='activations'
     ),
 

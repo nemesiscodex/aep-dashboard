@@ -3,7 +3,9 @@
 {% block title %} Dashboard {% endblock %} 
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+<link rel="stylesheet" href="/static/assets/plugins/leaflet/leaflet.min.css">
+{% endblock stylesheets %}
 
 {% block content %}
 
@@ -63,9 +65,24 @@
                                 </div>
                             </div>
                         </div>
-                        {% for detected in detected_per_day %}
-                            {{ detected }}
-                        {% endfor %}
+                        <div class="row">
+                            <div class="col-md-12 col-xl-12">
+                                <div class="card">
+                                    <div class="card-block border-bottom">
+                                        {% include 'charts/calendar.html' %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-xl-12">
+                                <div class="card">
+                                    <div class="card-block border-bottom">
+                                        {% include 'charts/heatmap.html' %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     <!-- [ Main Content ] end -->
                 </div>
             </div>
@@ -75,4 +92,10 @@
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+<script src="/static/assets/plugins/moment/moment.min.js"></script>
+<script src="/static/assets/plugins/leaflet/leaflet.min.js"></script>
+<script src="/static/assets/plugins/echarts/echarts-en.min.js"></script>
+<script src="/static/assets/plugins/echarts/echarts-theme.min.js"></script>
+<script src="/static/assets/plugins/echarts/echarts-leaflet.min.js"></script>
+{% endblock javascripts %}

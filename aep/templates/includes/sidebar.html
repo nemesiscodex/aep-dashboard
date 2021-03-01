@@ -37,11 +37,28 @@
                     <li class="nav-item pcoded-menu-caption">
                         <label>Actions</label>
                     </li>
-                    <li data-username="Disabled Menu" class="nav-item">
-                        <a href="{% url 'logout' %}" class="nav-link">
-                            <span class="pcoded-micon"><i class="feather icon-power"></i></span><span class="pcoded-mtext">Logout</span>
-                        </a>
-                    </li>
+                    {% if user.is_authenticated %}
+
+                        {% if user.is_staff %}
+                            <li data-username="Disabled Menu" class="nav-item">
+                                <a href="{% url 'admin:index' %}" class="nav-link">
+                                    <span class="pcoded-micon"><i class="feather icon-settings"></i></span><span class="pcoded-mtext">Admin</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                        
+                        <li data-username="Disabled Menu" class="nav-item">
+                            <a href="{% url 'logout' %}" class="nav-link">
+                                <span class="pcoded-micon"><i class="feather icon-power"></i></span><span class="pcoded-mtext">Logout</span>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li data-username="Disabled Menu" class="nav-item">
+                            <a href="{% url 'login' %}" class="nav-link">
+                                <span class="pcoded-micon"><i class="feather icon-lock"></i></span><span class="pcoded-mtext">Login</span>
+                            </a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
