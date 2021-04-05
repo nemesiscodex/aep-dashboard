@@ -1,6 +1,7 @@
 {% extends "layouts/base-fullscreen.html" %}
+{% load i18n %} 
 
-{% block title %} Login {% endblock %}
+{% block title %} {% translate "Login" %} {% endblock %}
 
 {% block content %}   
 
@@ -17,13 +18,13 @@
                     <div class="mb-4">
                         <i class="feather icon-user-plus auth-icon"></i>
                     </div>
-                    <h3 class="mb-4">Sign up</h3>
+                    <h3 class="mb-4">{% translate "Signup" %}</h3>
 
                     <span class="mb-0 text-muted">
                         {% if msg %}
                             {{ msg | safe }}
                         {% else %}
-                            Add your credentials
+                            {% translate "Add your credentials" %}:
                         {% endif %} 
                     </span>
 
@@ -57,14 +58,14 @@
                         <div class="form-group text-left">
                             <div class="checkbox checkbox-fill d-inline">
                                 <input type="checkbox" name="checkbox-fill-1" id="checkbox-fill-a1" checked="">
-                                <label for="checkbox-fill-a1" class="cr"> Agree with <a href="#">terms</a></label>
+                                <label for="checkbox-fill-a1" class="cr"> {% translate 'Agree with <a href="#">terms</a>' %}</label>
                             </div>
                         </div>
-                        <button type="submit" name="register" class="btn btn-primary shadow-2 mb-4">Register</button>
+                        <button type="submit" name="register" class="btn btn-primary shadow-2 mb-4">{% translate "Register" %}</button>
 
                     </form>
 
-                    <p class="mb-0 text-muted">Already have an account? <a href="{% url 'login' %}" >Login</a></p>
+                    <p class="mb-0 text-muted">{% translate "Already have an account?" %} <a href="{% url 'login' %}" >{% translate "Login" %}</a></p>
                     <br />
                 </div>
             </div>

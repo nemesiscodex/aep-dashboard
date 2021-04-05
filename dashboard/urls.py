@@ -6,7 +6,7 @@ from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('login/', login_view, name="login"),
-    path('register/', register_user, name="register"),
+    # path('register/', register_user, name="register"),
     path("logout/", LogoutView.as_view(), name="logout"),
 
     # The home page
@@ -14,12 +14,12 @@ urlpatterns = [
 
     path(
         'collector/', 
-        CollectorTableView.as_view(),
+        login_required(login_url="/login/")(CollectorTableView.as_view()),
         name='collector'
     ),
     path(
         'activations/', 
-        ActivationsTableView.as_view(),
+        login_required(login_url="/login/")(ActivationsTableView.as_view()),
         name='activations'
     ),
 

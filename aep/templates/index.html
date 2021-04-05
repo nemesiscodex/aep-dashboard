@@ -1,14 +1,16 @@
 {% extends "layouts/base.html" %}
+{% load i18n %} 
+{% load static %}
+{% load tz %}
 
 {% block title %} Dashboard {% endblock %} 
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}
-<link rel="stylesheet" href="/static/assets/plugins/leaflet/leaflet.min.css">
+<link rel="stylesheet" href="{% static 'assets/plugins/leaflet/leaflet.min.css' %}">
 {% endblock stylesheets %}
 
 {% block content %}
-
     <div class="pcoded-content">
         <div class="pcoded-inner-content">
             <!-- [ breadcrumb ] start -->
@@ -27,8 +29,8 @@
                                                 <i class="fa fa-bug f-30 text-c-red"></i>
                                             </div>
                                             <div class="col">
-                                                <h3 class="f-w-300">{{ detected_today }}</h3>
-                                                <span class="d-block text-uppercase">TOTAL DETECTED TODAY</span>
+                                                <h3 class="f-w-300">{{ detected_today|default:"0" }}</h3>
+                                                <span class="d-block text-uppercase">{% translate "Total detected today"|upper %}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -42,8 +44,8 @@
                                                 <i class="fa fa-bug f-30 text-c-red"></i>
                                             </div>
                                             <div class="col">
-                                                <h3 class="f-w-300">{{ detected_this_week }}</h3>
-                                                <span class="d-block text-uppercase">TOTAL DETECTED THIS WEEK</span>
+                                                <h3 class="f-w-300">{{ detected_this_week|default:"0" }}</h3>
+                                                <span class="d-block text-uppercase">{% translate "Total detected this week"|upper %}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -57,8 +59,8 @@
                                                 <i class="fa fa-bug f-30 text-c-red"></i>
                                             </div>
                                             <div class="col">
-                                                <h3 class="f-w-300">{{ detected_this_month }}</h3>
-                                                <span class="d-block text-uppercase">TOTAL DETECTED THIS MONTH</span>
+                                                <h3 class="f-w-300">{{ detected_this_month|default:"0" }}</h3>
+                                                <span class="d-block text-uppercase">{% translate "Total detected this month"|upper %}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -93,9 +95,9 @@
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-<script src="/static/assets/plugins/moment/moment.min.js"></script>
-<script src="/static/assets/plugins/leaflet/leaflet.min.js"></script>
-<script src="/static/assets/plugins/echarts/echarts-en.min.js"></script>
-<script src="/static/assets/plugins/echarts/echarts-theme.min.js"></script>
-<script src="/static/assets/plugins/echarts/echarts-leaflet.min.js"></script>
+<script src="{% static 'assets/plugins/moment/moment.min.js' %}"></script>
+<script src="{% static 'assets/plugins/leaflet/leaflet.min.js' %}"></script>
+<script src="{% static 'assets/plugins/echarts/echarts-en.min.js' %}"></script>
+<script src="{% static 'assets/plugins/echarts/echarts-theme.min.js' %}"></script>
+<script src="{% static 'assets/plugins/echarts/echarts-leaflet.min.js' %}"></script>
 {% endblock javascripts %}

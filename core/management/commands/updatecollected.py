@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db.models.aggregates import Max
 from core.models import Collector, Activation
 from django.utils.timezone import make_aware
+from datetime import timedelta
 import re
 
 class Command(BaseCommand):
@@ -25,7 +26,7 @@ class Command(BaseCommand):
         
         print("Starting from {0}".format(from_id))
 
-        values = Collector.objects.filter(id__gt=from_id).order_by('-id')
+        values = Collector.objects.filter(id__gt=from_id).order_by('id')
 
         processed = 0
         total = values.count()
@@ -33,8 +34,12 @@ class Command(BaseCommand):
         print("Records to process: {0}".format(total))
 
         for value in values:
+            last_24_hours = make_aware(value.created_at) - timedelta(days=1)
+            similar_frames = Collector.objects.filter(id__lt=value.id, created_at__gt=last_24_hours, frame=value.frame).count()
             parsed_frame = value.match_frame()
-            if parsed_frame:
+            if similar_frames > 0:
+                print("Similar frames found for {0} with id {1}. Skipping...".format(value.frame, value.id))
+            elif parsed_frame == 0:
                 days, hours, minutes, seconds, \
                     detector_id, s1, s2, s3, s4, count = parsed_frame.groups()
                 activation = Activation.objects.filter(collector_id=value.id).first()

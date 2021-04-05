@@ -6,6 +6,7 @@ from django.template import loader
 from .forms import LoginForm, SignUpForm
 from .services import DashboardService
 from django import template
+from django.utils.translation import gettext as _
 
 def login_view(request):
     form = LoginForm(request.POST or None)
@@ -22,9 +23,9 @@ def login_view(request):
                 login(request, user)
                 return redirect("/")
             else:    
-                msg = 'Invalid credentials'    
+                msg = _('Invalid credentials')
         else:
-            msg = 'Error validating the form'    
+            msg = _('Error validating the form')
 
     return render(request, "accounts/login.html", {"form": form, "msg" : msg})
 
@@ -41,19 +42,20 @@ def register_user(request):
             raw_password = form.cleaned_data.get("password1")
             user = authenticate(username=username, password=raw_password)
 
-            msg     = 'User created - please <a href="/login">login</a>.'
+            msg     = _('User created - please <a href="/login">login</a>.')
             success = True
             
             #return redirect("/login/")
 
         else:
-            msg = 'Form is not valid'    
+            msg = _('Form is not valid')    
     else:
         form = SignUpForm()
 
     return render(request, "accounts/register.html", {"form": form, "msg" : msg, "success" : success })
 
 
+@login_required(login_url="/login/")
 def index(request):
     
     context = {}

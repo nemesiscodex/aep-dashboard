@@ -1,4 +1,5 @@
 {% extends "layouts/base-fullscreen.html" %}
+{% load i18n %} 
 
 {% block title %} Login {% endblock %}
 
@@ -17,13 +18,13 @@
                     <div class="mb-4">
                         <i class="feather icon-unlock auth-icon"></i>
                     </div>
-                    <h3 class="mb-4">Login</h3>
+                    <h3 class="mb-4">{% translate "Login" %}</h3>
 
                     <span class="mb-0 text-muted">
                         {% if msg %}
                             {{ msg | safe }}
                         {% else %}
-                            Add your credentials
+                            {% translate "Add your credentials" %}
                         {% endif %} 
                     </span>
 
@@ -45,14 +46,14 @@
                         <div class="form-group text-left">
                             <div class="checkbox checkbox-fill d-inline">
                                 <input type="checkbox" name="checkbox-fill-1" id="checkbox-fill-a1" checked="">
-                                <label for="checkbox-fill-a1" class="cr"> Save Details</label>
+                                <label for="checkbox-fill-a1" class="cr">{% translate "Save Details" %}</label>
                             </div>
                         </div>
-                        <button type="submit" name="login" class="btn btn-primary shadow-2 mb-4">Login</button>
+                        <button type="submit" name="login" class="btn btn-primary shadow-2 mb-4">{% translate "Login" %}</button>
 
                     </form>
 
-                    <p class="mb-0 text-muted">Don’t have an account?</p> <p> <a href="{% url 'register' %}" >Sign UP</a> or <a href="{% url 'home' %}" >Browse Anonymously</a></p> 
+                    {% comment %} <p class="mb-0 text-muted">{% translate "Don’t have an account?" %}</p> <p> <a href="{% url 'register' %}" >{% translate "Signup" %}</a> {% translate "or" %}<a href="{% url 'home' %}" > {% translate "Browse Anonymously" %}</a></p>  {% endcomment %}
                     <br />
                 </div>
             </div>

@@ -1,3 +1,5 @@
+{% load i18n %} 
+
 <div id="calendar-chart" style="height: 220px">
 </div>
 <div id="calendar-bar-chart" style="height: 300px">
@@ -23,7 +25,6 @@
             startDate = now.add(-3, 'months');
         }
         startDate = startDate.format("YYYY-MM");
-        console.log(startDate, endDate);
         return [startDate, endDate];
     }
 
@@ -32,14 +33,14 @@
         var data = JSON.parse(document.getElementById('calendat-chart-data').textContent);
         var max = data
             .map((e) => e[1])
-            .reduce((element, max) => Math.max(element, max));
+            .reduce((element, max) => Math.max(element, max), 0);
         var chart = echarts.init(chartDom, 'walden')
         
         var option = {
             title: {
                 top: 0,
                 left: 'center',
-                text: 'Detections per day'
+                text: '{% translate "Detections per day" %}'
             },
             toolbox: {
                 right: 50,
@@ -49,7 +50,11 @@
                     }
                 }
             },
-            tooltip: {},
+            tooltip: {
+                formatter: (p, t, c) => {
+                    return p.value[0] + ": " + p.value[1]
+                }
+            },
             visualMap: {
                 min: 0,
                 max: max,
@@ -59,6 +64,33 @@
                 top: 35
             },
             calendar: {
+                dayLabel: {
+                    nameMap: [
+                        "{% translate 'S' context 'day of week sunday' %}",
+                        "{% translate 'M' context 'day of week monday' %}",
+                        "{% translate 'T' context 'day of week tuesday' %}",
+                        "{% translate 'W' context 'day of week wednesday' %}",
+                        "{% translate 'T' context 'day of week thursday' %}",
+                        "{% translate 'F' context 'day of week friday' %}",
+                        "{% translate 'S' context 'day of week saturday' %}"
+                    ]
+                },
+                monthLabel: {
+                    nameMap: [
+                        "{% translate 'Jan' context 'month' %}",
+                        "{% translate 'Feb' context 'month' %}",
+                        "{% translate 'Mar' context 'month' %}",
+                        "{% translate 'Apr' context 'month' %}",
+                        "{% translate 'May' context 'month' %}",
+                        "{% translate 'Jun' context 'month' %}",
+                        "{% translate 'Jul' context 'month' %}",
+                        "{% translate 'Aug' context 'month' %}",
+                        "{% translate 'Sep' context 'month' %}",
+                        "{% translate 'Oct' context 'month' %}",
+                        "{% translate 'Nov' context 'month' %}",
+                        "{% translate 'Dec' context 'month' %}"
+                    ]
+                },
                 top: 100,
                 left: 30,
                 right: 30,

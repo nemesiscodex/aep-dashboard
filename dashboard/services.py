@@ -52,7 +52,8 @@ class DashboardService:
             .filter(timestamp__gt=a_year_ago) \
             .annotate(timestamp_date=TruncDate('timestamp')) \
             .values('timestamp_date') \
-            .annotate(**{'total': Sum('count')})
+            .annotate(**{'total': Sum('count')}) \
+            .order_by('timestamp_date')
         return list(
             map(
                 lambda x: [x['timestamp_date'].strftime("%Y-%m-%d"), x['total']], 

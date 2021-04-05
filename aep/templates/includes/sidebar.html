@@ -1,4 +1,4 @@
-
+{% load i18n %} 
     <nav class="pcoded-navbar">
         <div class="navbar-wrapper">
             <div class="navbar-brand header-logo">
@@ -13,49 +13,49 @@
             <div class="navbar-content scroll-div">
                 <ul class="nav pcoded-inner-navbar">
                     <li class="nav-item pcoded-menu-caption">
-                        <label>Navigation</label>
+                        <label>{% translate "Navigation" %}</label>
                     </li>
                     <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" 
                         class="nav-item {% if 'index' in segment %} active {% endif %}">
-                        <a href="/" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
+                        <a href="{% url 'home' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">{% translate "Dashboard" %}</span></a>
                     </li>
                     <li class="nav-item pcoded-menu-caption">
-                        <label>Data</label>
+                        <label>{% translate "Data" %}</label>
                     </li>
                     {% url 'collector' as collector_url %}
                     <li data-username="Disabled Menu" class="nav-item {% if request.get_full_path == collector_url %} active {% endif %}">
                         <a href="{{ collector_url }}" class="nav-link">
-                            <span class="pcoded-micon"><i class="feather icon-server"></i></span><span class="pcoded-mtext">Raw Data</span>
+                            <span class="pcoded-micon"><i class="feather icon-server"></i></span><span class="pcoded-mtext">{% translate "Raw Data" %}</span>
                         </a>
                     </li>
                     {% url 'activations' as activations_url %}
                     <li data-username="Disabled Menu" class="nav-item {% if request.get_full_path == activations_url %} active {% endif %}">
                         <a href="{{ activations_url }}" class="nav-link">
-                            <span class="pcoded-micon"><i class="feather icon-server"></i></span><span class="pcoded-mtext">Parsed Data</span>
+                            <span class="pcoded-micon"><i class="feather icon-server"></i></span><span class="pcoded-mtext">{% translate "Parsed Data" %}</span>
                         </a>
                     </li>
                     <li class="nav-item pcoded-menu-caption">
-                        <label>Actions</label>
+                        <label>{% translate "Actions" %}</label>
                     </li>
                     {% if user.is_authenticated %}
 
                         {% if user.is_staff %}
                             <li data-username="Disabled Menu" class="nav-item">
                                 <a href="{% url 'admin:index' %}" class="nav-link">
-                                    <span class="pcoded-micon"><i class="feather icon-settings"></i></span><span class="pcoded-mtext">Admin</span>
+                                    <span class="pcoded-micon"><i class="feather icon-settings"></i></span><span class="pcoded-mtext">{% translate "Admin" %}</span>
                                 </a>
                             </li>
                         {% endif %}
                         
                         <li data-username="Disabled Menu" class="nav-item">
                             <a href="{% url 'logout' %}" class="nav-link">
-                                <span class="pcoded-micon"><i class="feather icon-power"></i></span><span class="pcoded-mtext">Logout</span>
+                                <span class="pcoded-micon"><i class="feather icon-power"></i></span><span class="pcoded-mtext">{% translate "Logout" %}</span>
                             </a>
                         </li>
                     {% else %}
                         <li data-username="Disabled Menu" class="nav-item">
                             <a href="{% url 'login' %}" class="nav-link">
-                                <span class="pcoded-micon"><i class="feather icon-lock"></i></span><span class="pcoded-mtext">Login</span>
+                                <span class="pcoded-micon"><i class="feather icon-lock"></i></span><span class="pcoded-mtext">{% translate "Login" %}</span>
                             </a>
                         </li>
                     {% endif %}

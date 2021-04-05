@@ -1,3 +1,5 @@
+{% load i18n %} 
+
 <div id="heatmap-chart" style="height: 50vh">
 </div>
 
@@ -9,14 +11,14 @@ function renderHeatmapChart() {
         var data = JSON.parse(document.getElementById('heatmap-chart-data').textContent);
         var max = data
             .map((e) => e[1])
-            .reduce((element, max) => Math.max(element, max));
+            .reduce((element, max) => Math.max(element, max), 0);
         var chart = echarts.init(chartDom, 'walden')
         
         var option = {
             title: {
                 top: 0,
                 left: 'center',
-                text: 'Heatmap detections last 30 days'
+                text: '{% blocktranslate with days=30 %}Heatmap: detections last {{ days }} days{% endblocktranslate %}'
             },
             tooltip: {
                 trigger: 'item',

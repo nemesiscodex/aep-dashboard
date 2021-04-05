@@ -1,11 +1,16 @@
 from django.contrib.gis.db import models
+from django.utils.timezone import make_aware
+import pytz
 from enum import Enum
 import re
 
 class Collector(models.Model):
-    pattern = r'^@(\d{3})-(\d{2}):(\d{2}):(\d{2})\*(\d{2})-(\d{4})(\d{4})(\d{4})(\d{4})=(\d{3})$'
+    pattern = r'^@(\d{3})-(\d{2}):(\d{2}):(\d{2})\*(\d{2})-(\d{4})(\d{4})(\d{4})(\d{4})=(\d{3});$'
     created_at = models.DateTimeField(blank=True, null=True)
     frame = models.CharField(max_length=64)
+
+    def created_at_localtime(self):
+        return make_aware(self.created_at, timezone=pytz.timezone('UTC'))
 
     def match_frame(self):
         return re.search(Collector.pattern, self.frame)
@@ -85,12 +90,16 @@ class Activation(models.Model):
     sensor_4 = models.IntegerField()
     count = models.IntegerField()
 
-    def uptime(self):
-        return '{:04d}-{:02d}:{:02d}:{:02d}'.format(
-            self.uptime_days,
+    def format_uptime_hms(self):
+        return '{:02d}:{:02d}:{:02d}'.format(
             self.uptime_hours,
             self.uptime_minutes,
             self.uptime_seconds
+        )
+
+    def format_uptime_days(self):
+        return '{:04d}'.format(
+            self.uptime_days
         )
 
     class Meta:

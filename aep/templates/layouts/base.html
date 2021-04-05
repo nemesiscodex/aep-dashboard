@@ -1,3 +1,6 @@
+{% load i18n %}
+{% load static %}
+ 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,22 +24,22 @@
     <meta name="author" content="nemesiscodex"/>
 
     <!-- Favicon icon -->
-    <link rel="icon" href="/static/assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="{% static 'assets/images/favicon.ico' %}" type="image/x-icon">
     <!-- fontawesome icon -->
-    <link rel="stylesheet" href="/static/assets/fonts/fontawesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome/css/fontawesome-all.min.css' %}">
     <!-- animation css -->
-    <link rel="stylesheet" href="/static/assets/plugins/animation/css/animate.min.css">
+    <link rel="stylesheet" href="{% static 'assets/plugins/animation/css/animate.min.css' %}">
 
     <!-- preload other css -->
     <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" as="style">
-    <link rel="preload" href="/static/assets/plugins/bootstrap/css/bootstrap.min.css" as="style">
-    <link rel="preload" href="/static/assets/fonts/feather/css/feather.min.css" as="style">
-    <link rel="preload" href="/static/assets/fonts/fontawesome/webfonts/fa-solid-900.woff2" as="font" crossorigin="anonymous">
-    <link rel="preload" href="/static/assets/plugins/jquery-scrollbar/css/jquery.scrollbar.min.css" as="style">
-    <link rel="preload" href="/static/assets/fonts/datta/datta-icon.css" as="style">
+    <link rel="preload" href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}" as="style">
+    <link rel="preload" href="{% static 'assets/fonts/feather/css/feather.min.css' %}" as="style">
+    <link rel="preload" href="{% static 'assets/fonts/fontawesome/webfonts/fa-solid-900.woff2' %}" as="font" crossorigin="anonymous">
+    <link rel="preload" href="{% static 'assets/plugins/jquery-scrollbar/css/jquery.scrollbar.min.css' %}" as="style">
+    <link rel="preload" href="{% static 'assets/fonts/datta/datta-icon.css' %}" as="style">
 
     <!-- vendor css -->
-    <link rel="stylesheet" href="/static/assets/css/style.min.css">
+    <link rel="stylesheet" href="{% static 'assets/css/style.min.css' %}">
 
 
     <!-- Specific CSS goes HERE -->
@@ -71,6 +74,44 @@
 
     <!-- Specific Page JS goes HERE  -->
     {% block javascripts %}{% endblock javascripts %}
+    <!-- Set timezone HERE  -->
+    <script type="text/javascript">
+        function createCookie(name, value, days) {
+            var expires;
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toGMTString();
+            }
+            else {
+                expires = "";
+            }
+            document.cookie = name + "=" + value + expires + "; path=/";
+        }
 
+        function getCookie(c_name) {
+            if (document.cookie.length > 0) {
+                c_start = document.cookie.indexOf(c_name + "=");
+                if (c_start != -1) {
+                    c_start = c_start + c_name.length + 1;
+                    c_end = document.cookie.indexOf(";", c_start);
+                    if (c_end == -1) {
+                        c_end = document.cookie.length;
+                    }
+                    return unescape(document.cookie.substring(c_start, c_end));
+                }
+            }
+            return "";
+        }
+        var cookie = getCookie("django_timezone");
+        if (!cookie) {
+            var tzid = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            console.log("Setting timezone " + tzid);
+            createCookie("django_timezone", tzid, 1);
+            location.reload();
+        } else {
+            console.log("Timezone: " + cookie)
+        }
+    </script>
 </body>
 </html>

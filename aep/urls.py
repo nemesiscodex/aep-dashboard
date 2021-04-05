@@ -14,14 +14,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.views.decorators.cache import cache_control
+from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from aep import settings
 import debug_toolbar
 
-urlpatterns = [
+newpatterns = [
     path('__debug__/', include(debug_toolbar.urls)),
     path('admin/', admin.site.urls),
     path('', include("dashboard.urls")), # Auth routes - login / register, UI Kits Html files
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
+
+urlpatterns = i18n_patterns(
+    path('', include(newpatterns))
+) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

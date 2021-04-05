@@ -1,4 +1,5 @@
 {% extends "layouts/base.html" %}
+{% load i18n %} 
 {% load render_table from django_tables2 %}
 {% load bootstrap4 %}
 
@@ -20,10 +21,12 @@
                     <div class="col-md-12 col-xl-12">
                         <div class="card">
                             <div class="card-block border-bottom">
+                                {% translate 'Filter' as filter_label %}
                                 {% if filter %}
                                     <form action="" method="get" class="form form-inline">
                                         {% bootstrap_form filter.form %}
-        {% bootstrap_button 'Filter' %}
+                                        {% bootstrap_button filter_label %}
+                                        <button type="submit" name="_export" value="csv" class="btn btn-primary">CSV</button>
                                     </form>
                                     <br>
                                 {% endif %}
