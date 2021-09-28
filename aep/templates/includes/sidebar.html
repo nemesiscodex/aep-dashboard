@@ -20,7 +20,7 @@
                         <a href="{% url 'home' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">{% translate "Dashboard" %}</span></a>
                     </li>
                     <li class="nav-item pcoded-menu-caption">
-                        <label>{% translate "Data" %}</label>
+                        <label>{% translate "Detectors" %}</label>
                     </li>
                     {% url 'collector' as collector_url %}
                     <li data-username="Disabled Menu" class="nav-item {% if request.get_full_path == collector_url %} active {% endif %}">
@@ -32,6 +32,24 @@
                     <li data-username="Disabled Menu" class="nav-item {% if request.get_full_path == activations_url %} active {% endif %}">
                         <a href="{{ activations_url }}" class="nav-link">
                             <span class="pcoded-micon"><i class="feather icon-server"></i></span><span class="pcoded-mtext">{% translate "Parsed Data" %}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item pcoded-menu-caption">
+                        <label>{% translate "Satellite Frame" %}</label>
+                    </li>
+                    {% url 'frames' as frames_url %}
+                    <li data-username="Disabled Menu" class="nav-item {% if request.get_full_path == frames_url %} active {% endif %}">
+                        <a href="{{ frames_url }}" class="nav-link">
+                            <span class="pcoded-micon"><i class="feather icon-server"></i></span><span class="pcoded-mtext">{% translate "Data" %}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item pcoded-menu-caption">
+                        <label>{% translate "Sensors" %}</label>
+                    </li>
+                    {% url 'sensors' as sensors_url %}
+                    <li data-username="Disabled Menu" class="nav-item {% if request.get_full_path == sensors_url %} active {% endif %}">
+                        <a href="{{ sensors_url }}" class="nav-link">
+                            <span class="pcoded-micon"><i class="feather icon-server"></i></span><span class="pcoded-mtext">{% translate "Data" %}</span>
                         </a>
                     </li>
                     <li class="nav-item pcoded-menu-caption">

@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from core.views import ActivationsTableView, CollectorTableView
+from core.views import ActivationsTableView, CollectorTableView, CollectorSensorsTableView, CollectorFramesTableView
 from django.urls import path, re_path
 from .views import login_view, register_user, index, pages
 from django.contrib.auth.views import LogoutView
@@ -16,6 +16,16 @@ urlpatterns = [
         'collector/', 
         login_required(login_url="/login/")(CollectorTableView.as_view()),
         name='collector'
+    ),
+    path(
+        'sensors/', 
+        login_required(login_url="/login/")(CollectorSensorsTableView.as_view()),
+        name='sensors'
+    ),
+    path(
+        'frames/', 
+        login_required(login_url="/login/")(CollectorFramesTableView.as_view()),
+        name='frames'
     ),
     path(
         'activations/', 

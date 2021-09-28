@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-10 01:08+0000\n"
+"POT-Creation-Date: 2021-04-19 05:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: aep/templates/accounts/login.html:21 aep/templates/accounts/login.html:52
 #: aep/templates/accounts/register.html:4
 #: aep/templates/accounts/register.html:68
-#: aep/templates/includes/sidebar.html:58 aep/templates/login.html:22
+#: aep/templates/includes/sidebar.html:76 aep/templates/login.html:22
 #: aep/templates/login.html:51
 msgid "Login"
 msgstr "Iniciar Sesión"
@@ -35,23 +35,9 @@ msgstr "Ingresa tus credenciales"
 msgid "Save Details"
 msgstr "Guardar credenciales"
 
-#: aep/templates/accounts/login.html:56 aep/templates/login.html:56
-msgid "Don’t have an account?"
-msgstr "No tienes una cuenta?"
-
-#: aep/templates/accounts/login.html:56 aep/templates/accounts/register.html:21
-#: aep/templates/login.html:57
+#: aep/templates/accounts/register.html:21 aep/templates/login.html:57
 msgid "Signup"
 msgstr "Registrarse"
-
-#: aep/templates/accounts/login.html:56
-#: venv/lib/python3.8/site-packages/django/utils/text.py:236
-msgid "or"
-msgstr "o"
-
-#: aep/templates/accounts/login.html:56
-msgid "Browse Anonymously"
-msgstr "Ingresar de forma anónima"
 
 #: aep/templates/accounts/register.html:61
 msgid "Agree with <a href=\"#\">terms</a>"
@@ -66,6 +52,7 @@ msgid "Already have an account?"
 msgstr "Ya tienes una cuenta?"
 
 #: aep/templates/activations.html:23 aep/templates/collector.html:24
+#: aep/templates/frames.html:24 aep/templates/sensors.html:24
 msgid "Filter"
 msgstr "Filtrar"
 
@@ -182,8 +169,8 @@ msgid "Dashboard"
 msgstr "Dashboard"
 
 #: aep/templates/includes/sidebar.html:23
-msgid "Data"
-msgstr "Datos"
+msgid "Detectors"
+msgstr "Detectores"
 
 #: aep/templates/includes/sidebar.html:28
 msgid "Raw Data"
@@ -193,15 +180,28 @@ msgstr "Datos brutos"
 msgid "Parsed Data"
 msgstr "Datos procesados"
 
-#: aep/templates/includes/sidebar.html:38
+#: aep/templates/includes/sidebar.html:38 core/tables.py:37
+msgid "Satellite Frame"
+msgstr "Trama satelital"
+
+#: aep/templates/includes/sidebar.html:43
+#: aep/templates/includes/sidebar.html:52
+msgid "Data"
+msgstr "Datos"
+
+#: aep/templates/includes/sidebar.html:47
+msgid "Sensors"
+msgstr "Sensores"
+
+#: aep/templates/includes/sidebar.html:56
 msgid "Actions"
 msgstr "Acciones"
 
-#: aep/templates/includes/sidebar.html:45
+#: aep/templates/includes/sidebar.html:63
 msgid "Admin"
 msgstr "Administración"
 
-#: aep/templates/includes/sidebar.html:52
+#: aep/templates/includes/sidebar.html:70
 msgid "Logout"
 msgstr "Salir"
 
@@ -217,24 +217,29 @@ msgstr "Total detectado esta semana"
 msgid "Total detected this month"
 msgstr "Total detectado este mes"
 
+#: aep/templates/login.html:56
+msgid "Don’t have an account?"
+msgstr "No tienes una cuenta?"
+
 #: aep/templates/tables/bootstrap4-responsive.html:66
 msgid "previous"
-msgstr ""
+msgstr "anterior"
 
 #: aep/templates/tables/bootstrap4-responsive.html:86
 msgid "next"
-msgstr ""
+msgstr "siguiente"
 
 # Custom
-#: core/filters.py:10 core/tables.py:7
+#: core/filters.py:10 core/filters.py:22 core/filters.py:34 core/tables.py:7
+#: core/tables.py:20 core/tables.py:36
 msgid "Created at"
 msgstr "Creado el"
 
-#: core/filters.py:21 core/tables.py:21
+#: core/filters.py:46 core/tables.py:47
 msgid "Timestamp"
 msgstr "Marca de Tiempo"
 
-#: core/filters.py:26 core/tables.py:25
+#: core/filters.py:51 core/tables.py:51
 msgid "Detector identifier"
 msgstr "Identificador del detector"
 
@@ -242,25 +247,59 @@ msgstr "Identificador del detector"
 msgid "Frame"
 msgstr "Trama"
 
+#: core/tables.py:21
+#, fuzzy
+#| msgid "Precipitation"
+msgid "Precipitation (mm)"
+msgstr "Cantidad de lluvia (mm)"
+
 #: core/tables.py:22
+#, fuzzy
+#| msgid "Wind Velocity"
+msgid "Wind Velocity (km/h)"
+msgstr "Velocidad del viento (km/h)"
+
+#: core/tables.py:23
+#, fuzzy
+#| msgid "Wind Direction"
+msgid "Wind Direction (°)"
+msgstr "Dirección del viento (°)"
+
+#: core/tables.py:24
+msgid "Humidity (%)"
+msgstr "Humedad (%)"
+
+#: core/tables.py:25
+msgid "Exterior Temperature (°C)"
+msgstr "Temperatura exterior (°C)"
+
+#: core/tables.py:26
+msgid "Interior Temperature (°C)"
+msgstr "Temperatura interior (°C)"
+
+#: core/tables.py:27
+msgid "Pressure (mbar)"
+msgstr "Presión (mbar)"
+
+#: core/tables.py:48
 msgid "Uptime (Days)"
 msgstr "Tiempo encendido (dias)"
 
-#: core/tables.py:23
+#: core/tables.py:49
 msgid "Uptime (hh:mm:ss)"
 msgstr "Tiempo encendido (hh:mm:ss)"
 
-#: core/tables.py:24
+#: core/tables.py:50
 msgid "Counter"
 msgstr "Contador"
 
 #: dashboard/forms.py:10 dashboard/forms.py:26
 msgid "Username"
-msgstr ""
+msgstr "Nombre de usuario"
 
 #: dashboard/forms.py:17 dashboard/forms.py:40
 msgid "Password"
-msgstr ""
+msgstr "Contraseña"
 
 #: dashboard/forms.py:33
 msgid "Email"
@@ -268,7 +307,7 @@ msgstr ""
 
 #: dashboard/forms.py:47
 msgid "Password check"
-msgstr ""
+msgstr "Verificar password"
 
 #: dashboard/views.py:26
 msgid "Invalid credentials"
@@ -1255,6 +1294,10 @@ msgctxt "String to return when truncating text"
 msgid "%(truncated_text)s…"
 msgstr ""
 
+#: venv/lib/python3.8/site-packages/django/utils/text.py:236
+msgid "or"
+msgstr "o"
+
 #. Translators: This string is used as a separator between list elements
 #: venv/lib/python3.8/site-packages/django/utils/text.py:255
 #: venv/lib/python3.8/site-packages/django/utils/timesince.py:83
@@ -1472,3 +1515,10 @@ msgstr ""
 #: venv/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:409
 msgid "Connect, get help, or contribute"
 msgstr ""
+
+#: venv/lib/python3.8/site-packages/isort/main.py:159
+msgid "show this help message and exit"
+msgstr ""
+
+#~ msgid "Browse Anonymously"
+#~ msgstr "Ingresar de forma anónima"

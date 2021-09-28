@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.db.models.aggregates import Max
-from core.models import Collector, Activation
+from core.models import CollectorActivation, Activation
 from django.utils.timezone import make_aware
 from datetime import timedelta
 import re
@@ -26,7 +26,7 @@ class Command(BaseCommand):
         
         print("Starting from {0}".format(from_id))
 
-        values = Collector.objects.filter(id__gt=from_id).order_by('id')
+        values = CollectorActivation.objects.filter(id__gt=from_id).order_by('id')
 
         processed = 0
         total = values.count()
@@ -35,7 +35,7 @@ class Command(BaseCommand):
 
         for value in values:
             last_24_hours = make_aware(value.created_at) - timedelta(days=1)
-            similar_frames = Collector.objects.filter(id__lt=value.id, created_at__gt=last_24_hours, frame=value.frame).count()
+            similar_frames = CollectorActivation.objects.filter(id__lt=value.id, created_at__gt=last_24_hours, frame=value.frame).count()
             parsed_frame = value.match_frame()
             if similar_frames > 0:
                 print("Similar frames found for {0} with id {1}. Skipping...".format(value.frame, value.id))

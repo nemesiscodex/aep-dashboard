@@ -4,7 +4,7 @@ import pytz
 from enum import Enum
 import re
 
-class Collector(models.Model):
+class CollectorActivation(models.Model):
     pattern = r'^@(\d{3})-(\d{2}):(\d{2}):(\d{2})\*(\d{2})-(\d{4})(\d{4})(\d{4})(\d{4})=(\d{3});$'
     created_at = models.DateTimeField(blank=True, null=True)
     frame = models.CharField(max_length=64)
@@ -13,14 +13,42 @@ class Collector(models.Model):
         return make_aware(self.created_at, timezone=pytz.timezone('UTC'))
 
     def match_frame(self):
-        return re.search(Collector.pattern, self.frame)
+        return re.search(CollectorActivation.pattern, self.frame)
 
     def is_valid_frame(self):
         return bool(self.match_frame())
 
     class Meta:
         managed = False
-        db_table = 'collector'
+        db_table = 'collector_activation'
+
+class CollectorSensors(models.Model):
+    created_at = models.DateTimeField(blank=True, null=True)
+    precipitation = models.FloatField()
+    wind_velocity = models.FloatField()
+    wind_direction = models.FloatField()
+    humidity = models.FloatField()
+    exterior_temperature = models.FloatField()
+    interior_temperature = models.FloatField()
+    pressure = models.FloatField()
+    
+    def created_at_localtime(self):
+        return make_aware(self.created_at, timezone=pytz.timezone('UTC'))
+
+    class Meta:
+        managed = False
+        db_table = 'collector_sensors'
+
+class CollectorFrames(models.Model):
+    created_at = models.DateTimeField(blank=True, null=True)
+    satellite = models.CharField(max_length=64)
+
+    def created_at_localtime(self):
+        return make_aware(self.created_at, timezone=pytz.timezone('UTC'))
+
+    class Meta:
+        managed = False
+        db_table = 'collector_frames'
 
 class Location(models.Model):
     longitude = models.FloatField()
@@ -28,7 +56,7 @@ class Location(models.Model):
     geom = models.PointField()
 
     def save(self, *args, **kwargs):
-        self.longitude = self.geom.x   
+        self.longitude = self.geom.x
         self.latitude  = self.geom.y
         super(Location, self).save(*args, **kwargs)  
 

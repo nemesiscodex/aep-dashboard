@@ -19,7 +19,10 @@ echo "DATABASE_USER=${DATABASE_USER}" >> /etc/crontab
 echo "DATABASE_PASSWORD=${DATABASE_PASSWORD}" >> /etc/crontab
 
 # Added a cronjob
-echo "* * * * * /app/updatecollected.sh >> /app/crontab.log 2>&1" >> /etc/crontab
+# with log file
+# echo "* * * * * /app/updatecollected.sh >> /app/crontab.log 2>&1" >> /etc/crontab
+# without log file
+echo "* * * * * /app/updatecollected.sh > /dev/null 2>&1" >> /etc/crontab
 
 # Registering the new crontab
 crontab /etc/crontab
